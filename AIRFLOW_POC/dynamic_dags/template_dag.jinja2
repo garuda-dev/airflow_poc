@@ -1,0 +1,21 @@
+from airflow import DAG
+from airflow.decorators import task
+from datetime import datetime
+
+with DAG(
+          dag_id = "job_{{dag_id}}",
+          start_date = datetime(2023,7,8),
+          schedule_interval = "{{schedule_interval}}",
+          catchup = False
+):
+
+    @task
+    def t1(input):
+        return input
+
+    @task
+    def t2(input):
+        return input
+
+
+    t1(t2('{{input}}'))
